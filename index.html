@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <input class="inputDate" id="inputDate" value="21.05.2015" />
+        </div>
+        <div class="row">
+            <div id="calendar"></div>
+        </div>
+    </div>
+    <script src="js/Tools.js"></script>
+    <script src="js/calendar.js"></script>
+    <script>
+        var reliableDate = document.getElementById('inputDate').value.split('.');
+        reliableDate = new Date(reliableDate[2], reliableDate[0], reliableDate[1]);
+        Calendar.draw('calendar', reliableDate);
+    </script>
+</body>
+</html>

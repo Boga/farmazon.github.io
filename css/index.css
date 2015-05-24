@@ -1,0 +1,15 @@
+.workday {
+    background-color: aliceblue;
+}
+
+.sunday {
+    background-color: antiquewhite;
+}
+
+.saturday {
+    background-color: antiquewhite;
+}
+
+.fz_avail {
+    font-weight: bold;
+}
