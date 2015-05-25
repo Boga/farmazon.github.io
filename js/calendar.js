@@ -61,7 +61,7 @@ var Calendar = {
             }, '');
             header = '<tr>' + header + '</tr>';
             mnt_html =
-                '<div class="col-sm-3">' +
+                '<div class="col-md-3">' +
                 '<strong>' + this.months[month] + '</strong>' +
                 '<table class="table " onclick="table_click()" data-month="' + month + '"data-year="' + year + '">' +
                 header +
