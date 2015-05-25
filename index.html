@@ -2,25 +2,36 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>Календарь работы Фармазона</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css"/>
 </head>
 <body>
+
     <div class="container">
-        <div class="row">
-            <input class="inputDate" id="inputDate" value="21.05.2015" />
-        </div>
+        <p>Календарь показывает расписание работы Фармазона ("два через два").</p>
+        <p>Если кликнуть на дату - календарь пересчитается, исходя из того, что указанная дата - первый выходной день; например, если кликнуть на 30-е февраля 2015 года, 30-е и 31-е будут посчитаны выходными, 32-е и 33-е - буднями и т.д.</p>
+        <p>Легенда: <span class="sunday">выходной</span>, <span class="today">сегодня</span>, <span class="fz_avail">Фармазон не работает</span>, <span>Фармазон работает</span>.</p>
         <div class="row">
             <div id="calendar"></div>
         </div>
     </div>
+
     <script src="js/Tools.js"></script>
     <script src="js/calendar.js"></script>
     <script>
-        var reliableDate = document.getElementById('inputDate').value.split('.');
-        reliableDate = new Date(reliableDate[2], reliableDate[0], reliableDate[1]);
+        var reliableDate = new Date(2015, 4, 25);
         Calendar.draw('calendar', reliableDate);
+    </script>
+    <script>
+        var table_click = function (evt) {
+            evt = evt || window.event;
+            var day = evt.target.innerHTML;
+            var month = evt.target.parentElement.parentElement.parentElement.dataset['month'];
+            var year = evt.target.parentElement.parentElement.parentElement.dataset['year'];
+            var reliableDate = new Date(year, month, day);
+            Calendar.draw('calendar', reliableDate);
+        };
     </script>
 </body>
 </html>

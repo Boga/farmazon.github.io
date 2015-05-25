@@ -13,3 +13,11 @@
 .fz_avail {
     font-weight: bold;
 }
+
+.cell:hover {
+    background-color: lightslategray;
+}
+
+.today {
+    background-color: lightblue;
+}

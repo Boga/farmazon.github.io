@@ -29,8 +29,9 @@ var Calendar = {
             var avail = true;
             if (typeof(day) == 'number') {
                 var dt = new Date(this.reliableDate.getFullYear(), month, day);
-                avail = ((Math.abs(dt - this.reliableDate) / (1000 * 60 * 60 * 24) ) % 4) < 2;
-                console.log(avail, Math.abs(dt - this.reliableDate));
+                var delta = this.reliableDate - dt;
+                avail = delta > 0 ? ((Math.abs(delta) / (1000 * 60 * 60 * 24) + 1) % 4) >= 2
+                                  : ((Math.abs(delta) / (1000 * 60 * 60 * 24)) % 4) >= 2;
             }
             return avail;
         },
@@ -45,8 +46,9 @@ var Calendar = {
             for (var i = 0; i < (end_day + shift); ++i) {
                 var cell_content = (i < shift) ? '&nbsp' : i - shift + 1;
                 var day_name = this.days[(i) % 7]["eng"];
-                var fz_avail = this.getFzAvailability(cell_content, month) ? 'fz_avail' : 'fz_busy';
-                cur_row += '<td class="' + day_name + ' ' + fz_avail + '">' + cell_content + '</td>';
+                var fz_avail = this.getFzAvailability(cell_content, month) ? 'fz_busy' : 'fz_avail';
+                var id = year + '_' + (month+1) + '_' + cell_content;
+                cur_row += '<td id="' + id + '" class="cell ' + day_name + ' ' + fz_avail + '">' + cell_content + '</td>';
                 if (day_name == 'sunday') {
                     mnt_html += '<tr>' + cur_row + '</tr>';
                     cur_row = '';
@@ -61,7 +63,7 @@ var Calendar = {
             mnt_html =
                 '<div class="col-sm-3">' +
                 '<strong>' + this.months[month] + '</strong>' +
-                '<table class="table ">' +
+                '<table class="table " onclick="table_click()" data-month="' + month + '"data-year="' + year + '">' +
                 header +
                 mnt_html +
                 '</table>' +
@@ -83,7 +85,11 @@ var Calendar = {
         ,
         draw: function (elem, reliableDate) {
             this.reliableDate = reliableDate;
+            console.log('reliableDate is ' + this.reliableDate);
+            var today = new Date();
+            today = today.getFullYear() + '_' + (today.getMonth()+1) + '_' + today.getDate();
             document.getElementById(elem).innerHTML = this.generateYearHtml();
+            document.getElementById(today).classList.add('today');
         }
 
     }
